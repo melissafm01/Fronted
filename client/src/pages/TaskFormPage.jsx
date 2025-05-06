@@ -54,8 +54,8 @@ export function TaskFormPage() {
           "date",
           task.date ? dayjs(task.date).utc().format("YYYY-MM-DD") : ""
         );
-        setValue("place", task.place || ""); // Nuevo campo
-       setValue("responsible", task.responsible ? task.responsible.join(", ") : ""); // Nuevo campo
+        setValue("place", task.place || ""); 
+       setValue("responsible", task.responsible ? task.responsible.join(", ") : ""); 
         setValue("completed", task.completed);
       }
     };

@@ -13,7 +13,7 @@ export function TasksPage() {
 
   return (
     <div className="flex min-h-screen bg-white-100">
-      {/* Sidebar izquierda - Exactamente como en la imagen */}
+      {/* Sidebar  */}
       <aside className="w-64 bg-[#004D37] text-white p-4 hidden md:block">
         <h1 className="text-xl font-bold mb-6">Actividades solidarias</h1>
         
@@ -29,7 +29,7 @@ export function TasksPage() {
         </div>
       </aside>
 
-      {/* Contenido principal - SIN CAMBIOS (igual que tu versión original) */}
+     
       <main className="flex-1 p-4">
         {tasks.length === 0 && (
           <div className="flex justify-center items-center p-10">
