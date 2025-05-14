@@ -51,9 +51,9 @@ export function TasksPage() {
               </Link>
             </li>
             <li>
-              <Link to="publicar" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
-                Publicar en Redes Sociales
-              </Link>
+               <Link  to={`publicar/:id`} className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+              Publicar en Redes Sociales
+            </Link>
             </li>
             <li>
               <Link to="asistencia" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">

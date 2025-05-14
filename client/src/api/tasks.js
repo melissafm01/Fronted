@@ -17,3 +17,10 @@ export const getOthersTasksRequest = async () => axios.get("/tasks/others");
 export const togglePromotionRequest = async (id, data) => axios.patch(`/tasks/${id}/promotion`, data);
 
 export const getPromotedTasksRequest = async () =>  axios.get("/tasks/promoted");
+
+
+export const generarEnlaceCompartir = async (taskId, data) => {
+  return axios.post(`/tasks/${taskId}/share`, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+  });
+};
