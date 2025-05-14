@@ -9,7 +9,7 @@ import { ButtonLinkIcon } from "../ui/ButtonLinkIcon";
 import { CardActivi } from "../ui/CardActivi";
 import { Switch } from "@headlessui/react";
 import { Helmet } from "react-helmet";  
-import { SocialMeta } from "../components/SocialMeta";
+import { SocialMeta } from "../../components/ui/SocialMeta";
 
 export function TaskCard({ task, showPromoBadge = false }) {
   const { togglePromotion, deleteTask } = useTasks();
