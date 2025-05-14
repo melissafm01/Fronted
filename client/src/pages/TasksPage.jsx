@@ -14,48 +14,82 @@ export function TasksPage() {
 
   // Verificamos si estamos en la ruta base (/tasks)
   const isBaseRoute = location.pathname === "/tasks";
+ // #003529//
+ return (
+  <div className="flex min-h-screen bg-white-100">
+    {/* Sidebar izquierda - visible en todos los tamaños */}
+    <div className="bg-[#004D37] p-4 max-md:p-3 max-sm:p-2">
+    <aside className="w-36 sm:w-44 md:w-52 max-md:w-36 max-sm:w-32 text-white">
 
-  return (
-    <div className="flex min-h-screen bg-white-100">
-      {/* Sidebar izquierda */}
-      <aside className="w-64 bg-[#004D37] text-white p-4 hidden md:block">
-        <h1 className="text-xl font-bold mb-6">Actividades solidarias</h1>
-        <ul className="space-y-1">
-          <li><Link to="buscar" className="block hover:bg-[#003529] p-3 rounded">Buscar y Filtrar Actividad</Link></li>
-          <li><Link to="lista" className="block hover:bg-[#003529] p-3 rounded">Lista de Actividades</Link></li>
-          <li><Link to="promocionadas" className="block hover:bg-[#003529] p-3 rounded">Actividades Promocionadas</Link></li>
-          <li><Link to="notificaciones" className="block hover:bg-[#003529] p-3 rounded">Configurar Notificaciones</Link></li>
-          <li><Link to="publicar" className="block hover:bg-[#003529] p-3 rounded">Publicar en Redes Sociales</Link></li>
-          <li><Link to="asistencia" className="block hover:bg-[#003529] p-3 rounded">Gestionar Asistencia</Link></li>
-        </ul>
+
+
+        <h1 className="text-base max-md:text-sm max-sm:text-xs font-bold mb-6 max-md:mb-5 max-sm:mb-4">
+          Actividades solidarias
+        </h1>
+
+        <div className="mb-4 max-md:mb-3 max-sm:mb-2">
+          <ul className="space-y-1">
+              <li>
+              <Link to="lista" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Lista de Actividades
+              </Link>
+            </li>
+            <li>
+              <Link to="buscar" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Buscar y Filtrar Actividad
+              </Link>
+            </li>
+          
+            <li>
+              <Link to="promocionadas" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Actividades Promocionadas
+              </Link>
+            </li>
+            <li>
+              <Link to="notificaciones" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Configurar Notificaciones
+              </Link>
+            </li>
+            <li>
+              <Link to="publicar" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Publicar en Redes Sociales
+              </Link>
+            </li>
+            <li>
+              <Link to="asistencia" className="block hover:bg-[#003529] p-3 max-md:p-2 max-sm:p-1 rounded text-xs sm:text-sm max-sm:text-[10px]">
+                Gestionar Asistencia
+              </Link>
+            </li>
+          </ul>
+        </div>
       </aside>
-
-      {/* Contenido principal*/}
-      <main className="flex-1 p-4"> 
-        <Outlet /> {/* Aquí se renderizan los fragmentos */}
-        
-        {/* Mostramos contenido solo en la ruta base */}
-        {isBaseRoute && (
-          <>
-            {tasks.length === 0 && (
-              <div className="flex justify-center items-center p-10">
-                <div>
-                  <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
-                  <h1 className="font-bold text-xl text-gray-400">
-                    No hay tareas aún, Porfavor agregue una nueva tarea
-                  </h1>
-                </div>
-              </div>
-            )}
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white text-black">
-              {tasks.map((task) => (
-                <TaskCard task={task} key={task._id} />
-              ))}
-            </div>
-          </>
-        )}
-      </main>
     </div>
-  );
+
+    {/* Contenido principal */}
+    <main className="flex-1 p-4">
+      <Outlet />
+
+      {isBaseRoute && (
+        <>
+          {tasks.length === 0 && (
+            <div className="flex justify-center items-center p-10">
+              <div>
+                <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
+                <h1 className="font-bold text-xl text-gray-400">
+                  No hay tareas aún, Porfavor agregue una nueva tarea
+                </h1>
+              </div>
+            </div>
+          )}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white text-black">
+            {tasks.map((task) => (
+              <TaskCard task={task} key={task._id} />
+            ))}
+          </div>
+        </>
+      )}
+    </main>
+   </div>
+  );
 }

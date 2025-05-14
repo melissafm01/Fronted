@@ -1,10 +1,13 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   createTaskRequest,
   deleteTaskRequest,
   getTasksRequest,
   getTaskRequest,
   updateTaskRequest,
+  getOthersTasksRequest,
+  togglePromotionRequest,
+  getPromotedTasksRequest 
 } from "../api/tasks";
 
 const TaskContext = createContext();
@@ -17,11 +20,74 @@ export const useTasks = () => {
 
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState([]);
+  const [othersTasks, setOthersTasks] = useState([]);
+  const [promotedTasks, setPromotedTasks] = useState([]);
 
-  const getTasks = async () => {
-    const res = await getTasksRequest();
-    setTasks(res.data);
+  useEffect(() => {
+    getTasks();
+    getOthersTasks();
+    getPromotedTasks();
+  }, []);
+
+  const getPromotedTasks = async () => {
+    try {
+      const res = await getPromotedTasksRequest();
+      setPromotedTasks(res.data);
+    } catch (error) {
+      console.error("Error al obtener promocionadas:", error);
+    }
   };
+
+  const togglePromotion = async (id, data) => {
+    try {
+      const res = await togglePromotionRequest(id, data);
+      
+      // Actualizar lista principal
+      setTasks(prev => prev.map(task => 
+        task._id === id ? { ...task, ...res.data } : task
+      ));
+      
+      // Actualizar lista promocionada
+      setPromotedTasks(prev => {
+        const exists = prev.some(t => t._id === id);
+        if (res.data.isPromoted && !exists) return [...prev, res.data];
+        if (!res.data.isPromoted) return prev.filter(t => t._id !== id);
+        return prev.map(t => t._id === id ? res.data : t);
+      });
+      
+      return res.data;
+    } catch (error) {
+      console.error("Error al actualizar promoción:", error);
+      throw error;
+    }
+  };
+  
+
+const getOthersTasks = async () => {
+  try {
+    const res = await getOthersTasksRequest(); // Llama al API
+    setOthersTasks(res.data || []); // Asegura que el estado nunca sea undefined
+  } catch (error) {
+    console.error("Error al obtener tareas de otros usuarios:", error);
+  }
+};
+useEffect(() => {
+  getOthersTasks(); // Llamamos la función cuando se carga la app
+}, []);
+
+const getTasks = async () => {
+  try {
+    const res = await getTasksRequest();
+    const tasksConPropiedad = res.data.map(task => ({
+      ...task,
+      isOwner: true, // Agregar propiedad a tareas propias
+    }));
+    setTasks(tasksConPropiedad);
+  } catch (error) {
+    console.error("Error al obtener tareas:", error);
+  }
+};
+
 
   const deleteTask = async (id) => {
     try {
@@ -65,15 +131,21 @@ export function TaskProvider({ children }) {
     }
   };
 
+
   return (
     <TaskContext.Provider
       value={{
         tasks,
+        othersTasks,
+        promotedTasks,
         getTasks,
         deleteTask,
         createTask,
         getTask,
         updateTask,
+        getOthersTasks,
+        togglePromotion,
+        getPromotedTasks
       }}
     >
       {children}
