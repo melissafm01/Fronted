@@ -8,20 +8,11 @@ import { ButtonIcon } from "../ui/ButtonIcon";
 import { ButtonLinkIcon } from "../ui/ButtonLinkIcon";
 import { CardActivi } from "../ui/CardActivi";
 import { Switch } from "@headlessui/react";
-import { Helmet } from "react-helmet";  
-import { SocialMeta } from "../../components/ui/SocialMeta";
 
 export function TaskCard({ task, showPromoBadge = false }) {
   const { togglePromotion, deleteTask } = useTasks();
   const [showModal, setShowModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-
-  // Metadatos Open Graph para compartir
-  const metaDescription = `Actividad: ${task.title}. Lugar: ${task.place}. Fecha: ${new Date(task.date).toLocaleDateString()}`;
-  const pageUrl = `${window.location.origin}/tasks/${task._id}`;
-  const defaultImage = `${window.location.origin}/logo-social.png`;
-
-
 
   const handleDelete = () => {
     deleteTask(task._id);
@@ -30,27 +21,6 @@ export function TaskCard({ task, showPromoBadge = false }) {
 
   return (
     <>
-    <SocialMeta
-  title={`${task.title} | Actividades Solidarias`}
-  description={metaDescription}
-  image={task.image}
-  url={`/tasks/${task._id}`}
-/>
-       <Helmet>
-        <title>{task.title} | Actividades Solidarias</title>
-        <meta property="og:title" content={task.title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content={task.image || defaultImage} />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:type" content="website" />
-        
-        {/* Twitter Cards */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={task.title} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content={task.image || defaultImage} />
-      </Helmet>
-
       <CardActivi className="relative">
         {showPromoBadge && (
           <div className="absolute -top-1 -right-[1px] bg-[#EAB308] text-white px-3 py-1 text-xs font-semibold shadow-[0_2px_4px_rgba(0,0,0,0.2)] z-20 flex items-center gap-1 rounded-bl-xl border-2 border-[#EAB308]/80">
