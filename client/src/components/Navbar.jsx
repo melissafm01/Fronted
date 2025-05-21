@@ -40,7 +40,8 @@ export function Navbar() {
             <>
               <Link
                 to={isAuthenticated ? "/tasks" : "/"}
-                className="text-sm md:text-base font-light px-2 md:px-1 underline underline-offset-4 decoration-[1px] decoration-gray-300 hover:text-gray-300 whitespace-nowrap transition-colors">
+                className="text-sm md:text-base font-light px-2 md:px-1 underline underline-offset-4 decoration-[1px] decoration-gray-300 hover:text-gray-300 whitespace-nowrap transition-colors"
+              >
                 Mis actividades{" "}
               </Link>
 

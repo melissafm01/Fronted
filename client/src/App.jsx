@@ -3,14 +3,13 @@ import { Navbar } from "./components/Navbar";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./routes";
 
-// Importaciones de componentes de fragmentos
+import { SearchProvider } from "./context/searchContext";  // Aquí se importa el SearchProvider
 import { BuscarActividad } from "./components/taskFragments/BuscarActividad";
 import { ListaActividades } from "./components/taskFragments/ListaActividades";
 import { ActividadesPromocionadas } from "./components/taskFragments/ActividadesPromocionadas";
 import { ConfigurarNotificaciones } from "./components/taskFragments/ConfigurarNotificaciones";
 import { PublicarRedes } from "./components/taskFragments/PublicarRedes";
 import { GestionarAsistencia } from "./components/taskFragments/GestionarAsistencia";
-
 
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -24,36 +23,35 @@ function App() {
   return (
     <AuthProvider>
       <TaskProvider>
-        <BrowserRouter>
-          <main className="container content-container mx-auto px-10 md:px-0">
-            <Navbar />
+        <SearchProvider>  {/*  el SearchProvider envuelve el contenido que usa la búsqueda */}
+          <BrowserRouter>
+            <main className="content-container mx-auto md:px-0">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
 
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-
-              <Route element={<ProtectedRoute />}>
-
-
-                <Route path="/tasks" element={<TasksPage />}>
-                  <Route path="buscar" element={<BuscarActividad />} />
-                  <Route path="lista" element={<ListaActividades />} />
-                  <Route path="promocionadas" element={<ActividadesPromocionadas />} />
-                  <Route path="notificaciones" element={<ConfigurarNotificaciones />} />
-                  <Route path="publicar/:id" element={<PublicarRedes />} />
-                  <Route path="asistencia" element={<GestionarAsistencia />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/tasks" element={<TasksPage />}>
+                    <Route path="buscar" element={<BuscarActividad />} />
+                    <Route path="lista" element={<ListaActividades />} />
+                    <Route path="promocionadas" element={<ActividadesPromocionadas />} />
+                    <Route path="notificaciones" element={<ConfigurarNotificaciones />} />
+                    <Route path="publicar" element={<PublicarRedes />} />
+                    <Route path="asistencia" element={<GestionarAsistencia />} />
+                  </Route>
+                  <Route path="/add-task" element={<TaskFormPage />} />
+                  <Route path="/tasks/:id" element={<TaskFormPage />} />
+                  <Route path="/profile" element={<h1>Profile</h1>} />
                 </Route>
-                <Route path="/add-task" element={<TaskFormPage />} />
-                <Route path="/tasks/:id" element={<TaskFormPage />} />
-                <Route path="/profile" element={<h1>Profile</h1>} />
-              </Route>
-            </Routes>
-          </main>
-        </BrowserRouter>
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </SearchProvider>
       </TaskProvider>
     </AuthProvider>
   );
 }
-
+//
 export default App;

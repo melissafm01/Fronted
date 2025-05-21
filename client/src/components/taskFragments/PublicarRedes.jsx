@@ -1,149 +1,93 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { generarEnlaceCompartir } from "../../api/tasks";
-import { useTasks } from "../../context/tasksContext";
-import { FiShare2, FiTwitter, FiFacebook, FiInstagram, FiLink } from "react-icons/fi";
+  import React, { useState } from "react";
+  import { FaFacebookF, FaInstagram } from "react-icons/fa";
+  import { Button } from "../ui";
 
-export function PublicarRedes() {
-  const { id } = useParams();
-  const { tasks } = useTasks();
-  const [descripcion, setDescripcion] = useState("");
-  const [redSocial, setRedSocial] = useState("facebook");
-  const [enlace, setEnlace] = useState("");
-  const [loading, setLoading] = useState(true);
+  export function PublicarRedes() {
+    const [descripcion, setDescripcion] = useState("");
+    const [enlace, setEnlace] = useState("");
+    const [redSocial, setRedSocial] = useState("");
 
-  const task = tasks.find(t => t._id === id);
-
-  useEffect(() => {
-    const generarEnlace = async () => {
-      try {
-        const response = await generarEnlaceCompartir(id, {
-          socialNetwork: redSocial,
-          description: descripcion
-        });
-        setEnlace(response.data.shareUrl);
-      } catch (error) {
-        console.error("Error generando enlace:", error);
-      } finally {
-        setLoading(false);
-      }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log("Publicando en:", redSocial, descripcion, enlace);
+      // Aquí puedes integrar con la API o lógica de publicación
     };
-    generarEnlace();
-  }, [id, redSocial, descripcion]);
 
-  const handlePublicar = () => {
-    window.open(enlace, "_blank");
-  };
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(enlace);
-  };
-
-  return (
-    <div className="max-w-4xl mx-auto p-3 bg-white rounded-xl shadow-lg">
-      <div className="mb-5 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-          <FiShare2 className="w-8 h-8 text-green-600" />
-        </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          {task?.title}
+    return (
+      <div className="bg-white min-h-screen p-6">
+        {/* Título principal */}
+        <h2 className="text-[#03673E] font-semibold text-lg mb-6">
+        📱 Publicar en Redes Sociales
         </h2>
-        <p className="text-gray-500">Genera un enlace único para compartir esta actividad</p>
-      </div>
 
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Descripción 
-          </label>
-          <div className="relative">
-            <textarea
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-              maxLength="250"
-              className="w-full h-18 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-black "
-              placeholder="Ej: ¡Únete a esta increíble actividad comunitaria!"
-            />
-            <span className="absolute bottom-2 right-2 text-xs text-black">
-              {descripcion.length}/250
-            </span>
-          </div>
-        </div>
+        {/* Contenedor del formulario */}
+        <div className="border-2 bg-white shadow-md p-8 rounded-md max-w-xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <h3 className="text-center text-green-900 text-xl font-semibold">
+              Publica tu Actividad
+            </h3>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Selecciona red social
-          </label>
-          <div className="grid grid-cols-3 gap-4">
-            {[
-              { name: "facebook", icon: <FiFacebook /> },
-              { name: "twitter", icon: <FiTwitter /> },
-              { name: "instagram", icon: <FiInstagram /> }
-            ].map((red) => (
-              <button
-                key={red.name}
-                onClick={() => setRedSocial(red.name)}
-                className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center
-                  ${redSocial === red.name 
-                    ? "border-green-500 bg-green-50" 
-                    : "border-gray-200 hover:border-green-300"}`}
-              >
-                <span className="text-2xl mb-2 text-gray-700">
-                  {red.icon}
-                </span>
-                <span className="text-sm font-medium capitalize">
-                  {red.name}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+            {/* Campo Descripción */}
+            <div>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Descripción</label>
+              <input
+                type="text"
+                placeholder="Descripción de la actividad"
+                className="w-full p-2 border border-gray-300 rounded bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-green-600"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+                required
+              />
+            </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Enlace generado
-          </label>
-          <div className="flex items-center gap-2">
-          <div className="flex-1 p-3 bg-gray-50 rounded-lg border border-gray-200 text-gray-500 overflow-hidden">
-  {loading ? (
-    <div className="h-4 bg-gray-200 animate-pulse rounded w-3/4"></div>
-  ) : (
-    <span className="block truncate whitespace-nowrap">
-      {enlace || <span className="text-red-500">Error al generar enlace</span>}
-    </span>
-  )}
-</div>
+            {/* Campo Enlace */}
+            <div>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Enlace</label>
+              <input
+                type="text"
+                placeholder="Enlace de la actividad"
+                className="w-full p-2 border border-gray-300 rounded bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-green-600"
+                value={enlace}
+                onChange={(e) => setEnlace(e.target.value)}
+                required
+              />
+            </div>
 
-            <button
-              onClick={handleCopyLink}
-              className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-gray-700 transition-colors"
-              title="Copiar enlace"
+            {/* Selección de Red Social */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-700">Selecciona red social</label>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  className={`flex items-center gap-2 px-4 py-2 rounded text-white text-sm transition-all ${
+                    redSocial === "Facebook" ? "bg-[#0173ED]" : "bg-[#4da3f7]"
+                  }`}
+                  onClick={() => setRedSocial("Facebook")}
+                >
+                  <FaFacebookF /> Facebook
+                </button>
+
+                <button
+                  type="button"
+                  className={`flex items-center gap-2 px-4 py-2 rounded text-white text-sm transition-all ${
+                    redSocial === "Instagram" ? "bg-pink-700" : "bg-pink-500"
+                  }`}
+                  onClick={() => setRedSocial("Instagram")}
+                >
+                  <FaInstagram /> Instagram
+                </button>
+              </div>
+            </div>
+
+            {/* Botón Publicar */}
+            <Button
+              type="submit"
+              className="w-full bg-green-800 text-white py-2 px-4 rounded hover:bg-green-700 transition-all shadow"
             >
-              <FiLink className="w-5 h-5" />
-            </button>
-          </div>
+              Publicar
+            </Button>
+          </form>
         </div>
-
-        <button
-          onClick={handlePublicar}
-          disabled={!enlace || loading}
-          className="w-full py-3 px-6 bg-gradient-to-r from-green-600 to-green-700 text-white font-medium rounded-lg
-                   hover:from-green-700 hover:to-green-800 disabled:opacity-50 disabled:cursor-not-allowed
-                   transition-all flex items-center justify-center gap-2"
-        >
-          {loading ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Generando...
-            </>
-          ) : (
-            <>
-              <FiShare2 className="w-5 h-5" />
-              Publicar en {redSocial.charAt(0).toUpperCase() + redSocial.slice(1)}
-            </>
-          )}
-        </button>
       </div>
-    </div>
-  );
-}
+    );
+  }
