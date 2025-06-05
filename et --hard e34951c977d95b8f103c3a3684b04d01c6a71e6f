@@ -1,0 +1,137 @@
+[33mcommit e34951c977d95b8f103c3a3684b04d01c6a71e6f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmelissa[m[33m)[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Tue May 27 00:02:58 2025 -0500
+
+    avance 27 mayo
+
+[33mcommit c00f7b6886f796f625d80909159dd016f1c44903[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Mon May 26 23:51:25 2025 -0500
+
+    instalacion de papararse
+
+[33mcommit b8ee7bba7822046e3b471e08a8db09230d455dd8[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Mon May 26 23:48:47 2025 -0500
+
+    instalacion de depend
+
+[33mcommit 3e058f46a30ef960ac4a181eae85b9a32927ac5b[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Mon May 26 23:44:18 2025 -0500
+
+    presentacion
+
+[33mcommit deefc94994c5872fc52845800533b74c128e1b2e[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Tue May 20 23:32:01 2025 -0500
+
+    avances de local
+
+[33mcommit 8a8431f6889cb2e5c018dc05c012050540766e81[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Thu May 15 02:09:10 2025 -0500
+
+    agg archivo vercel.json
+
+[33mcommit da346b1aa4e7d51145dce5b720d50c255e58a0e9[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed May 14 23:03:41 2025 -0500
+
+    cambio de url de render
+
+[33mcommit f99a18d6649c54bf180ee3f5e5e5f1358bd4c81c[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed May 14 13:10:32 2025 -0500
+
+    publicar en redes sociales
+
+[33mcommit c9eba1915e56fc91f7a40f6c5c43097b1ce51e47[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed May 14 11:09:48 2025 -0500
+
+    publicar en redes sociales
+
+[33mcommit 59aa264f62bddd6229f3d715ac4bb4057bc14b8f[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed May 14 11:03:10 2025 -0500
+
+    publicar en redes sociales
+
+[33mcommit da58d426b78b03e2fbc9c6c303b17a064868f8a7[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed May 14 08:46:54 2025 -0500
+
+    publicar en redes sociales
+
+[33mcommit 80aa1bb422c38b662aa8e8d4a69ec54ba80ff064[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Tue May 13 19:18:01 2025 -0500
+
+    actualizaciones de cardActivity
+
+[33mcommit 67382a1b7cc038c0377d2b5cbad1589f7fb2c978[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Tue May 13 19:09:50 2025 -0500
+
+    actualizaciones de aside
+
+[33mcommit 5b3bd2e8bd0e9e7458cff029f5fefa6542af5bca[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Tue May 6 20:49:30 2025 -0500
+
+    modificaciones en el sidebar
+
+[33mcommit 5ed5dbe4d5afc8de121d0de9cc207738098e578f[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Mon May 5 22:42:37 2025 -0500
+
+    modificando tarjetas de actividades
+
+[33mcommit 01083ce8d18e835fbfb4874a60dd51bb4cd8d217[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Sun May 4 16:40:57 2025 -0500
+
+    agregue api
+
+[33mcommit d9e156e961c61ab83182b64b9bb659c0f8955991[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Sun May 4 16:33:54 2025 -0500
+
+    config variables
+
+[33mcommit 15597a270040e27f777e970b6c11e436c9efca72[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Sun May 4 16:29:59 2025 -0500
+
+    config variables
+
+[33mcommit ed58a5d03e5f015ace78547d746641f53621caba[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Fri May 2 10:52:08 2025 -0500
+
+    configuracion de despliegur
+
+[33mcommit 11374cc75c069da12b9358671ddb9b7c41514c9d[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Fri May 2 09:54:50 2025 -0500
+
+    configuracion de local a producción
+
+[33mcommit 0110165050270f2e2b3fa7e60a2f175db4a1af09[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Thu May 1 17:32:39 2025 -0500
+
+    configuracion de variables de entorno
+
+[33mcommit 26200fefa0a24fdf7811396349195c98c5865ecc[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed Apr 30 15:11:55 2025 -0500
+
+    login, crud creacion de actividades
+
+[33mcommit e50678a97021234e56bf4d5f24914b28c68e3e1a[m[33m ([m[1;32morigin[m[33m, [m[1;32mmelisssa[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Melissaf M <melissam200604@gmail.com>
+Date:   Wed Apr 30 14:33:24 2025 -0500
+
+    login y crud d creacion de tareas
