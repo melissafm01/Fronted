@@ -72,8 +72,7 @@ export function TaskFormPage() {
           type="text"
           name="title"
           maxLength={90}
-          placeholder="Title"
-          {...register("title")}
+          placeholder="Title"  {...register("title")}
           autoFocus
         />
         {errors.title && (
