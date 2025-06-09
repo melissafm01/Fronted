@@ -1,5 +1,5 @@
 {
-  "$schema": "https://fronted-cyan.vercel.app/vercel.json",
+  "version": 2,
   "routes": [
     {
       "handle": "filesystem"
