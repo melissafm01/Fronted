@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Limpiar errores después de 5 segundos
+  
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -74,7 +74,7 @@ const logout = async () => {
   cleanupLocalStorage(email);
 
   try {
-    await logoutRequest(); // ✅ Borra la cookie HttpOnly desde el servidor
+    await logoutRequest(); 
   } catch (err) {
     console.error("Error al cerrar sesión:", err);
   }
@@ -103,7 +103,7 @@ const logout = async () => {
         
         setIsAuthenticated(true);
         setUser(res.data);
-        // Sincronizar localStorage al verificar token
+      
         setupLocalStorage(res.data);
         setLoading(false);
       } catch (error) {

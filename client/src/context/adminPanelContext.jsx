@@ -85,7 +85,7 @@ export const AdminPanelProvider = ({ children }) => {
   const errorMessage = error.response?.data?.message || "Error al cambiar estado del usuario";
     setErrors(Array.isArray(errorMessage) ? errorMessage : [errorMessage]);
     
-    // Limpiar el error después de 3 segundos
+    
     setTimeout(() => {
       setErrors([]);
     }, 3000);

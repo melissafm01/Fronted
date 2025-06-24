@@ -21,8 +21,8 @@ import { TaskProvider } from "./context/tasksContext";
 
 import { AdminProvider } from "./context/adminContext";
 import AdminDashboard from "./pages/AdminDashboard";
-import { AsistenciaProvider } from "./context/asistenciaContext"; // importa tu nuevo provider
-import { NotificationsProvider } from "./context/NotificationsContext"; // Ajusta según tu estructura
+import { AsistenciaProvider } from "./context/asistenciaContext"; 
+import { NotificationsProvider } from "./context/NotificationsContext";
 import { AdminPanelProvider } from "./context/adminPanelContext";
 
 import { Toaster } from 'react-hot-toast';

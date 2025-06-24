@@ -22,7 +22,7 @@ export function NotificationsProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Función para obtener notificaciones desde la API
+
   const fetchNotifications = async () => {
     setLoading(true);
     setError(null);
@@ -41,7 +41,7 @@ export function NotificationsProvider({ children }) {
     }
   };
 
-  // Obtener todas las configuraciones de notificaciones
+
   const getNotifications = async () => {
     try {
       setLoading(true);
@@ -59,7 +59,7 @@ export function NotificationsProvider({ children }) {
     }
   };
 
-  // Guardar o actualizar configuración de notificación
+
   const saveNotificationConfig = async (taskId, daysBefore) => {
     try {
       setLoading(true);
@@ -69,7 +69,7 @@ export function NotificationsProvider({ children }) {
         daysBefore: parseInt(daysBefore)
       });
       
-      // Actualizar el estado local
+  
       await getNotifications();
       
       return res.data;
@@ -83,14 +83,14 @@ export function NotificationsProvider({ children }) {
     }
   };
 
-  // Eliminar configuración de notificación
+
   const deleteNotificationConfig = async (notificationId) => {
     try {
       setLoading(true);
       setError(null);
       const res = await deleteNotificationRequest(notificationId);
       
-      // Actualizar el estado local removiendo la notificación
+   
       setNotifications(prev => 
         prev.filter(notification => notification._id !== notificationId)
       );

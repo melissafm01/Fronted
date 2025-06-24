@@ -1,5 +1,4 @@
-// 1. Hook personalizado para manejar notificaciones
-// hooks/useNotificationSystem.js
+
 import { useState, useEffect, useCallback } from 'react';
 import { useNotifications } from '../context/NotificationsContext';
 
