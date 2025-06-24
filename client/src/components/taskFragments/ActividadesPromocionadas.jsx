@@ -79,7 +79,7 @@ export function ActividadesPromocionadas() {
                 key={task._id}
                 task={task}
                 showPromoBadge={true}
-                showAttendanceButton={true} // Con botones de asistencia para actividades de otros
+                showAttendanceButton={true} 
               />
             ))
           )}
@@ -103,7 +103,7 @@ export function ActividadesPromocionadas() {
                 key={task._id}
                 task={task}
                 showPromoBadge={true}
-                showAttendanceButton={false} // Sin botones de asistencia para mis actividades
+                showAttendanceButton={false} 
               />
             ))}
           </div>

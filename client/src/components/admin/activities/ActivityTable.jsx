@@ -107,7 +107,7 @@ export default function ActivityTable() {
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-500"></div>
         </div>
       ) : (
-        <div className="overflow-x-visible"> {/* Cambiado de overflow-x-auto a overflow-x-visible */}
+        <div className="overflow-x-visible"> 
           <table className="w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>

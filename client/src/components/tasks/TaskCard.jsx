@@ -32,7 +32,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   const [isAttending, setIsAttending] = useAttendance(task._id);
   const [isLoading, setIsLoading] = useState(false);
   const [isPromoted, setIsPromoted] = useState(task.isPromoted);
-   // Nueva función para ir a configuración de notificaciones
+   //  para ir a configuración de notificaciones
   const handleGoToNotifications = () => {
   navigate(`/tasks/notificaciones?taskId=${task._id}`);
 };
@@ -46,7 +46,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   try {
     await deleteTask(task._id);
     setShowModal(false);
-    // Refrescar automáticamente después de eliminar
+ 
     if (typeof refreshSearch === "function") {
       refreshSearch();
     }
@@ -57,7 +57,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 };
 
  const handleTogglePromotion = async () => {
-  // Actualización optimista - cambiar UI inmediatamente
+
   const newPromotedState = !isPromoted;
   setIsPromoted(newPromotedState);
   
@@ -176,13 +176,12 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
                 >
                   <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
-                
-                {/* Texto PROMO más corto */}
+             
                 <span className="text-xs font-bold tracking-wide uppercase">
                   PROMO
                 </span>
                 
-                {/* Icono de estrella */}
+                
                 <svg 
                   className="w-2.5 h-2.5 text-white" 
                   fill="currentColor" 
@@ -195,14 +194,14 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
           </div>
         )}
 
-        {/* ICONO CAMPANA POSICIONADO CORRECTAMENTE */}
+ 
      {showAttendanceButton && !task.isOwner && isAttending && (
        <button
         onClick={handleGoToNotifications}
         className={`absolute z-20 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-100 transition-all duration-200 hover:shadow-lg ${
         showPromoBadge 
-        ? 'top-10 right-1' // Si hay promoción, más cerca del borde
-        : 'top-1 right-0'  // Si no hay promoción, en la esquina
+        ? 'top-10 right-1' 
+        : 'top-1 right-0'
          }`}
        title="Configurar notificación"
      >
@@ -210,8 +209,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
          </button>
       )}    
 
-        
-{/* IMAGEN DE LA TAREA CON PLACEHOLDER */}
+
 <div className="mb-4">
   {task.image ? (
     <img 
@@ -237,7 +235,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
         <header className="relative">
           <div className="flex justify-between items-start gap-2">
             <h1 className={`text-black text-lg font-semibold break-words overflow-hidden text-ellipsis whitespace-nowrap flex-1 ${
-              showPromoBadge ? 'pr-8' : '' // Espacio para la etiqueta de promo
+              showPromoBadge ? 'pr-8' : ''
             } ${
               showAttendanceButton && isAttending ? 'mr-8' : ''
             }`}>
@@ -270,7 +268,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 
           <div className="border-b border-[#c7c0c0] mt-2 mb-4 w-full" />
 
-          {/* LUGAR CON ICONO GPS */}
+          
           {task.place && (
             <div className="flex items-center gap-2 text-gray-600 mb-2">
               <svg 
@@ -300,7 +298,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
             </div>
           )}
 
-          {/* FECHA CON ICONO CALENDARIO */}
+        
           {task.date && (
             <div className="flex items-center gap-2 text-gray-600 mb-2">
               <svg 
@@ -324,7 +322,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
         </header>
 
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-2 w-full">
-          {/* Botón Ver Detalles con gradiente y icono - AJUSTADO EL PADDING */}
+
           <button
               onClick={() => setShowDetailsModal(true)}
             className="w-full sm:w-auto px-3 py-0.2 bg-gradient-to-r from-[#064349] to-[#03683E] text-white rounded-lg font-medium hover:from-[#075a61] hover:to-[#048447] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
@@ -404,7 +402,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
               {task.title}
             </h2>
 
-            {/* IMAGEN EN EL MODAL DE DETALLES */}
+ 
             {task.image && (
               <div className="mb-4 flex justify-center">
                 <img 

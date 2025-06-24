@@ -211,7 +211,7 @@ export function ConfigurarNotificaciones() {
   // Cargar solo las tareas confirmadas al inicio, NO las notificaciones
   useEffect(() => {
     fetchConfirmedTasks();
-    // REMOVIDO: getNotifications() - solo cargar cuando sea necesario
+    
   }, [fetchConfirmedTasks]);
 
   // Función para limpiar mensajes después de un tiempo
@@ -268,7 +268,7 @@ export function ConfigurarNotificaciones() {
     // Guardar la configuración
     await saveNotificationConfig(selectedActivity, anticipationValue);
     
-    // ✅ AQUÍ ESTÁ LA CLAVE: Recargar las notificaciones automáticamente
+  
     try {
       await getNotifications();
       console.log("✅ Notificaciones recargadas automáticamente");
@@ -285,17 +285,16 @@ export function ConfigurarNotificaciones() {
   } catch (error) {
     console.error("❌ Error al guardar:", error);
     
-    // ⚠️ IMPORTANTE: Verificar si realmente falló o es solo un problema de respuesta
-    // Si el error es 500 pero el guardado fue exitoso, intentar recargar
+  
     if (error.response?.status === 500) {
       console.log("🔄 Error 500 detectado, intentando verificar si se guardó...");
       
       try {
-        // Esperar un poco y recargar las notificaciones para verificar
+   
         setTimeout(async () => {
           try {
             await getNotifications();
-            // Si llegamos aquí, probablemente sí se guardó
+
             setMensaje("Configuración guardada correctamente (verificada tras error del servidor).");
             setSelectedActivity("");
             setAnticipationDays("");
@@ -305,7 +304,7 @@ export function ConfigurarNotificaciones() {
           }
         }, 1000);
         
-        return; // Salir aquí para no mostrar el error inmediatamente
+        return; 
       } catch (verifyError) {
         console.error("Error en verificación:", verifyError);
       }
@@ -557,7 +556,7 @@ export function ConfigurarNotificaciones() {
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Mostrar mensaje solo en esta sección */}
+    
               {mensaje && (
                 <div className={`border rounded-xl p-4 ${
                   mensaje.includes("Error") 

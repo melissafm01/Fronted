@@ -44,8 +44,8 @@ export function useNotificationSystem() {
         `Recordatorio: ${notification.task.title}`,
         {
           body: `La actividad es en ${notification.daysBefore} días (${new Date(notification.task.date).toLocaleDateString()})`,
-          icon: '/favicon.ico', // Ajusta la ruta de tu icono
-          tag: notification._id, // Evita duplicados
+          icon: '/favicon.ico',
+          tag: notification._id, 
         }
       );
 
@@ -59,7 +59,7 @@ export function useNotificationSystem() {
     }
   }, [permission]);
 
-  // Efecto principal para verificar notificaciones
+  //  verificar notificaciones
   useEffect(() => {
     // Verificar inmediatamente al cargar
     const pending = checkPendingNotifications();
@@ -84,8 +84,6 @@ export function useNotificationSystem() {
   };
 }
 
-// 2. Componente de Notificaciones Toast
-// components/NotificationToast.jsx
 import { useState, useEffect } from 'react';
 import { X, Bell, Calendar, MapPin } from 'lucide-react';
 
@@ -160,8 +158,7 @@ export function NotificationToast({ notification, onClose, onSnooze }) {
   );
 }
 
-// 3. Componente principal de gestión de notificaciones
-// components/NotificationManager.jsx
+
 import { useState, useEffect } from 'react';
 import { useNotificationSystem } from '../hooks/useNotificationSystem';
 import { NotificationToast } from './NotificationToast';
@@ -223,7 +220,7 @@ export function NotificationManager() {
 }
 
 // 4. Indicador de notificaciones en el header/navbar
-// components/NotificationBadge.jsx
+
 import { Bell, BellRing } from 'lucide-react';
 import { useNotificationSystem } from '../hooks/useNotificationSystem';
 
@@ -251,8 +248,7 @@ export function NotificationBadge({ onClick }) {
   );
 }
 
-// 5. Panel de notificaciones (dropdown)
-// components/NotificationPanel.jsx
+// 5. Panel de notificaciones 
 import { Calendar, MapPin, Clock } from 'lucide-react';
 import { useNotificationSystem } from '../hooks/useNotificationSystem';
 
@@ -334,46 +330,3 @@ export function NotificationPanel({ isOpen, onClose }) {
   );
 }
 
-// 6. Integración en el componente principal (App.jsx)
-/*
-import { NotificationManager } from './components/NotificationManager';
-
-function App() {
-  return (
-    <div className="app">
-      // Tu contenido existente
-      
-      // Agregar el manager de notificaciones
-      <NotificationManager />
-    </div>
-  );
-}
-*/
-
-// 7. Integración en el Navbar
-/*
-import { useState } from 'react';
-import { NotificationBadge } from './components/NotificationBadge';
-import { NotificationPanel } from './components/NotificationPanel';
-
-function Navbar() {
-  const [showNotifications, setShowNotifications] = useState(false);
-
-  return (
-    <nav className="navbar">
-      // Otros elementos del navbar
-      
-      <div className="relative">
-        <NotificationBadge 
-          onClick={() => setShowNotifications(!showNotifications)} 
-        />
-        
-        <NotificationPanel 
-          isOpen={showNotifications}
-          onClose={() => setShowNotifications(false)}
-        />
-      </div>
-    </nav>
-  );
-}
-*/

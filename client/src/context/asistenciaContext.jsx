@@ -31,7 +31,7 @@ export const AsistenciaProvider = ({ children }) => {
   };
 
 
-  // 🔄 Cargar asistentes de una tarea
+  //  Cargar asistentes de una tarea
 const fetchAttendees = async (taskId) => {
   try {
     const res = await getAttendanceRequest(taskId);
@@ -42,7 +42,7 @@ const fetchAttendees = async (taskId) => {
 };
 
 
-  // ✅ Confirmar asistencia
+  //  Confirmar asistencia
 const confirmAttendance = async (data) => {
 
 
@@ -101,7 +101,7 @@ const cancelAttendance = async ({ taskId, email }) => {
       prev.filter(a => !(a.task === taskId && a.email === lowerEmail))
     );
     
-    return true; // Éxito
+    return true; 
   } catch (err) {
     console.error("Error en cancelAttendance:", {
       taskId,

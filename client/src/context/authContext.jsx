@@ -64,7 +64,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       setErrors(error.response.data.message);
-      // Limpiar localStorage en caso de error
       cleanupLocalStorage(user.email);
     }
   };

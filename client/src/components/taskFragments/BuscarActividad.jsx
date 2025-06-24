@@ -248,7 +248,7 @@ export function BuscarActividad() {
           </div>
         )}
 
-        {/* Results Grid - CAMBIO PRINCIPAL: Ahora usa grid ordenado como el segundo código */}
+        
         {!loading && (
           <div id="results-section">
             {results.length === 0 ? (

@@ -34,7 +34,7 @@ export function TasksPage() {
     setSortedTasks({ future, past });
   }, [tasks]);
 
-  // Verificamos si estamos en la ruta base (/tasks)
+
   const isBaseRoute = location.pathname === "/tasks";
 
   return (
@@ -161,7 +161,7 @@ export function TasksPage() {
                 {/* Sección actividades futuras */}
                 {sortedTasks.future.length > 0 && (
                   <div className="mb-12">
-                    {/* Header opcional para actividades futuras */}
+            
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full"></div>
                       <h2 className="text-2xl font-bold text-gray-800 flex items-center">
@@ -181,7 +181,6 @@ export function TasksPage() {
                   </div>
                 )}
 
-                {/* Línea separadora mejorada */}
                 {sortedTasks.future.length > 0 && sortedTasks.past.length > 0 && (
                   <div className="relative my-8">
                     <hr className="border-t-2 border-gray-300 opacity-50" />
