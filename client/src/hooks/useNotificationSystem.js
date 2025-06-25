@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { useNotifications } from '../context/NotificationsContext';
 
@@ -44,8 +43,8 @@ export function useNotificationSystem() {
         `Recordatorio: ${notification.task.title}`,
         {
           body: `La actividad es en ${notification.daysBefore} días (${new Date(notification.task.date).toLocaleDateString()})`,
-          icon: '/favicon.ico',
-          tag: notification._id, 
+          icon: '/favicon.ico', // Ajusta la ruta de tu icono
+          tag: notification._id, // Evita duplicados
         }
       );
 
@@ -59,7 +58,7 @@ export function useNotificationSystem() {
     }
   }, [permission]);
 
-  //  verificar notificaciones
+  // Efecto principal para verificar notificaciones
   useEffect(() => {
     // Verificar inmediatamente al cargar
     const pending = checkPendingNotifications();
@@ -83,6 +82,7 @@ export function useNotificationSystem() {
     checkPendingNotifications
   };
 }
+
 
 import { useState, useEffect } from 'react';
 import { X, Bell, Calendar, MapPin } from 'lucide-react';
@@ -158,6 +158,7 @@ export function NotificationToast({ notification, onClose, onSnooze }) {
   );
 }
 
+// 3. Componente principal de gestión de notificaciones
 
 import { useState, useEffect } from 'react';
 import { useNotificationSystem } from '../hooks/useNotificationSystem';

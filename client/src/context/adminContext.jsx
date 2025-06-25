@@ -73,7 +73,7 @@ export const AdminProvider = ({ children }) => {
        const errorMessage = error.response?.data?.message || "Error al actualizar administrador";  
           setErrors(Array.isArray(errorMessage) ? errorMessage : [errorMessage]);
 
-              
+              // Limpia el error después de 3 segundos
     setTimeout(() => {
       setErrors([]);
     }, 3000);
@@ -94,7 +94,7 @@ export const AdminProvider = ({ children }) => {
          const errorMessage = error.response?.data?.message || "Error al desactivar administrador";
     setErrors(Array.isArray(errorMessage) ? errorMessage : [errorMessage]);
       
-    
+       // Limpia el error después de 3 segundos
     setTimeout(() => {
       setErrors([]);
     }, 3000);

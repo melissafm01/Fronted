@@ -8,7 +8,7 @@ export function ListaActividades() {
   const { othersTasks, getOthersTasks } = useTasks();
   const navigate = useNavigate();
 
-  
+  // Cargar actividades automáticamente cuando el componente se monta
   useEffect(() => {
     if (getOthersTasks) {
       getOthersTasks();

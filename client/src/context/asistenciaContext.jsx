@@ -13,8 +13,8 @@ export const AsistenciaContext = createContext();
 
 export const AsistenciaProvider = ({ children }) => {
   const [attendees, setAttendees] = useState([]);
-  const [error, setError] = useState(null);      
-  const [forbidden, setForbidden] = useState(false); 
+  const [error, setError] = useState(null);      // Estado para errores
+  const [forbidden, setForbidden] = useState(false); // Estado para 403 Forbidden
   const [userAttendances, setUserAttendances] = useState([]);
   const [loadingAttendances, setLoadingAttendances] = useState(false);
 
@@ -31,11 +31,11 @@ export const AsistenciaProvider = ({ children }) => {
   };
 
 
-  //  Cargar asistentes de una tarea
+
 const fetchAttendees = async (taskId) => {
   try {
     const res = await getAttendanceRequest(taskId);
-    setAttendees(res.data);
+    setAttendees(res.data); 
   } catch (error) {
     console.error("Error al obtener asistentes:", error);
   }
@@ -44,7 +44,6 @@ const fetchAttendees = async (taskId) => {
 
   //  Confirmar asistencia
 const confirmAttendance = async (data) => {
-
 
   setError(null);
   setForbidden(false);
@@ -55,14 +54,14 @@ const confirmAttendance = async (data) => {
       throw new Error("Datos incompletos para confirmar asistencia");
     }
 
-    console.log("Enviando a backend:", data); 
+    console.log("Enviando a backend:", data); // Debug
 
     const response = await confirmAttendanceRequest(data);
     
- 
+   
     const normalizedData = {
-      ...response.data.attendance, 
-      taskId: response.data.attendance.task, 
+      ...response.data.attendance,  // Accede al objeto attendance
+      taskId: response.data.attendance.task, // Asegura taskId
       email: response.data.attendance.email.toLowerCase()
     };
 
@@ -85,7 +84,7 @@ const confirmAttendance = async (data) => {
 };  
 
 
-
+  //  Cancelar asistencia
 
 const cancelAttendance = async ({ taskId, email }) => {
   setError(null);
@@ -94,9 +93,10 @@ const cancelAttendance = async ({ taskId, email }) => {
   try {
     const lowerEmail = email.trim().toLowerCase();
     
-    
+    // 1. Cancelar en el backend
     await cancelAttendanceRequest({ taskId, email: lowerEmail });
     
+    // 2. Actualizar estado global
     setAttendees(prev => 
       prev.filter(a => !(a.task === taskId && a.email === lowerEmail))
     );
@@ -116,18 +116,18 @@ const cancelAttendance = async ({ taskId, email }) => {
       setError(err.response?.data?.message || 'Error al cancelar asistencia');
       toast.error(err.response?.data?.message || 'Error al cancelar asistencia');
     }
-    throw err;
+    throw err; // Propagar el error para manejo adicional
   }
 };
 
-
+  //  Editar asistencia
   
 const updateAttendance = async (id, updatedData) => {
   setError(null);
   setForbidden(false);
   try {
     const response = await updateAttendanceRequest(id, updatedData);
- 
+    // Actualizar ambos estados: attendees global y filteredAttendees local
     setAttendees(prev =>
       prev.map(a => a._id === id ? { ...a, ...response.data.updated } : a)
     );
@@ -144,7 +144,7 @@ const updateAttendance = async (id, updatedData) => {
 };
 
 
-  //  Eliminar asistencia
+  // 🗑 Eliminar asistencia
   const deleteAttendance = async (id) => {
     setError(null);
     setForbidden(false);
@@ -186,11 +186,11 @@ const updateAttendance = async (id, updatedData) => {
   const userEmail = localStorage.getItem("userEmail")?.trim().toLowerCase();
   if (!userEmail) return false;
   
-
+  // Primero verificar en el estado local
   const localAttendances = JSON.parse(localStorage.getItem(`userAttendances_${userEmail}`) || []);
   if (localAttendances.includes(taskId)) return true;
   
-
+  // Luego verificar en el estado global
   return attendees.some(
     a => a.task === taskId && a.email === userEmail
   );

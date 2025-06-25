@@ -32,7 +32,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   const [isAttending, setIsAttending] = useAttendance(task._id);
   const [isLoading, setIsLoading] = useState(false);
   const [isPromoted, setIsPromoted] = useState(task.isPromoted);
-   //  para ir a configuración de notificaciones
+   // Nueva función para ir a configuración de notificaciones
   const handleGoToNotifications = () => {
   navigate(`/tasks/notificaciones?taskId=${task._id}`);
 };
@@ -46,7 +46,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   try {
     await deleteTask(task._id);
     setShowModal(false);
- 
+    // Refrescar automáticamente después de eliminar
     if (typeof refreshSearch === "function") {
       refreshSearch();
     }
@@ -57,7 +57,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 };
 
  const handleTogglePromotion = async () => {
-
+  // Actualización optimista - cambiar UI inmediatamente
   const newPromotedState = !isPromoted;
   setIsPromoted(newPromotedState);
   
@@ -151,7 +151,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
       // 4. Forzar recarga de asistentes
       await fetchAttendees(task._id);
       setShowCancelModal(false);
-      toast.success("Asistencia cancelada correctamente ❌");
+      toast.error("Asistencia cancelada correctamente ❌");
     } catch (err) {
       console.error("Error al cancelar asistencia:", err);
       setIsAttending(true); // Revertir en caso de error
@@ -176,12 +176,13 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
                 >
                   <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
-             
+                
+                {/* Texto PROMO más corto */}
                 <span className="text-xs font-bold tracking-wide uppercase">
                   PROMO
                 </span>
                 
-                
+                {/* Icono de estrella */}
                 <svg 
                   className="w-2.5 h-2.5 text-white" 
                   fill="currentColor" 
@@ -194,14 +195,14 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
           </div>
         )}
 
- 
+        {/* ICONO CAMPANA POSICIONADO CORRECTAMENTE */}
      {showAttendanceButton && !task.isOwner && isAttending && (
        <button
         onClick={handleGoToNotifications}
         className={`absolute z-20 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-100 transition-all duration-200 hover:shadow-lg ${
         showPromoBadge 
-        ? 'top-10 right-1' 
-        : 'top-1 right-0'
+        ? 'top-10 right-1' // Si hay promoción, más cerca del borde
+        : 'top-1 right-0'  // Si no hay promoción, en la esquina
          }`}
        title="Configurar notificación"
      >
@@ -209,7 +210,8 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
          </button>
       )}    
 
-
+        
+{/* IMAGEN DE LA TAREA CON PLACEHOLDER */}
 <div className="mb-4">
   {task.image ? (
     <img 
@@ -235,7 +237,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
         <header className="relative">
           <div className="flex justify-between items-start gap-2">
             <h1 className={`text-black text-lg font-semibold break-words overflow-hidden text-ellipsis whitespace-nowrap flex-1 ${
-              showPromoBadge ? 'pr-8' : ''
+              showPromoBadge ? 'pr-8' : '' // Espacio para la etiqueta de promo
             } ${
               showAttendanceButton && isAttending ? 'mr-8' : ''
             }`}>
@@ -268,7 +270,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 
           <div className="border-b border-[#c7c0c0] mt-2 mb-4 w-full" />
 
-          
+          {/* LUGAR CON ICONO GPS */}
           {task.place && (
             <div className="flex items-center gap-2 text-gray-600 mb-2">
               <svg 
@@ -298,7 +300,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
             </div>
           )}
 
-        
+          {/* FECHA CON ICONO CALENDARIO */}
           {task.date && (
             <div className="flex items-center gap-2 text-gray-600 mb-2">
               <svg 
@@ -322,7 +324,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
         </header>
 
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-2 w-full">
-
+          {/* Botón Ver Detalles con gradiente y icono - AJUSTADO EL PADDING */}
           <button
               onClick={() => setShowDetailsModal(true)}
             className="w-full sm:w-auto px-3 py-0.2 bg-gradient-to-r from-[#064349] to-[#03683E] text-white rounded-lg font-medium hover:from-[#075a61] hover:to-[#048447] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
@@ -395,93 +397,117 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 
     
       {/* Modal de Detalles */}
-      {showDetailsModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-30">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
-            <h2 className="text-3xl font-bold mb-4 text-center text-gray-800 break-words whitespace-normal">
-              {task.title}
-            </h2>
+{/* Modal de Detalles Optimizado */}
+{showDetailsModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-30">
+    <div className="bg-white rounded-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-2xl h-auto max-h-[85vh] shadow-xl flex flex-col overflow-hidden">
+      
+      {/* Título */}
+      <div className="p-4 md:p-5 border-b border-gray-200 flex-shrink-0">
+        <h2 className="text-base sm:text-lg md:text-xl font-bold text-center text-gray-800 break-words leading-tight">
+          {task.title}
+        </h2>
+      </div>
 
- 
-            {task.image && (
-              <div className="mb-4 flex justify-center">
-                <img 
-                  src={task.image} 
-                  alt={task.title}
-                  className="max-w-full max-h-64 object-contain rounded-lg shadow-sm"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
+      {/* Contenido principal - con scroll si es necesario */}
+      <div className="flex-1 p-4 md:p-5 overflow-y-auto min-h-0">
+        
+        {/* IMAGEN EN EL MODAL DE DETALLES */}
+        {task.image && (
+          <div className="mb-4 flex justify-center">
+            <img 
+              src={task.image} 
+              alt={task.title}
+              className="max-w-full h-32 sm:h-36 md:h-40 lg:h-44 object-contain rounded-lg shadow-sm"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
+        )}
+
+        {/* Información en layout optimizado */}
+        <div className="space-y-4">
+          
+          {/* Descripción */}
+          <div>
+            <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+              <span className="font-semibold text-gray-800">Descripción:</span> {task.description}
+            </p>
+          </div>
+          
+          {/* Grid de información */}
+          <div className="space-y-3">
+            {/* LUGAR CON ICONO EN MODAL */}
+            {task.place && (
+              <div className="flex items-start gap-3 text-sm md:text-base text-gray-600">
+                <svg 
+                  className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <span className="font-semibold text-gray-800">Lugar:</span> 
+                  <span className="ml-1 break-words">{task.place}</span>
+                </div>
               </div>
             )}
-
-            <div className="space-y-4">
-              <p className="text-gray-600">
-                <span className="font-semibold">Descripción:</span> {task.description}
-              </p>
-              
-              {/* LUGAR CON ICONO EN MODAL */}
-              {task.place && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <svg 
-                    className="w-4 h-4 text-green-600 flex-shrink-0" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                  >
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="font-semibold">Lugar:</span> {task.place}
+            
+            {/* RESPONSABLE CON ICONO EN MODAL */}
+            {task.responsible?.length > 0 && (
+              <div className="flex items-start gap-3 text-sm md:text-base text-gray-600">
+                <svg 
+                  className="w-4 h-4 md:w-5 md:h-5 text-blue-600 flex-shrink-0 mt-0.5" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                </svg>
+                <div>
+                  <span className="font-semibold text-gray-800">Responsables:</span> 
+                  <span className="ml-1 break-words">{task.responsible.join(", ")}</span>
                 </div>
-              )}
-              
-              {/* RESPONSABLE CON ICONO EN MODAL */}
-              {task.responsible?.length > 0 && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <svg 
-                    className="w-4 h-4 text-blue-600 flex-shrink-0" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                  </svg>
-                  <span className="font-semibold">Responsables:</span> {task.responsible.join(", ")}
+              </div>
+            )}
+            {/* FECHA CON ICONO EN MODAL */}
+            {task.date && (
+              <div className="flex items-start gap-3 text-sm md:text-base text-gray-600">
+                <svg 
+                  className="w-4 h-4 md:w-5 md:h-5 text-purple-600 flex-shrink-0 mt-0.5" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <span className="font-semibold text-gray-800">Fecha:</span>
+                  <span className="ml-1">
+                    {new Date(task.date).toLocaleDateString("es-ES", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </div>
-              )}
-              
-              {/* FECHA CON ICONO EN MODAL */}
-              {task.date && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <svg 
-                    className="w-4 h-4 text-purple-600 flex-shrink-0" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                  >
-                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                  </svg>
-                  <span className="font-semibold">Fecha:</span>{" "}
-                  {new Date(task.date).toLocaleDateString("es-ES", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </div>
-              )}
-            </div>
-
-            <div className="mt-6 flex justify-start">
-              <button
-                onClick={() => setShowDetailsModal(false)}
-                className="px-6 py-0.5 text-white font-medium rounded-lg bg-gradient-to-r from-[#064349] to-[#03683E] hover:from-[#075a61] hover:to-[#048447] transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                Volver
-              </button>
-            </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
-
+      </div>
+      {/* Botón Volver */}
+      <div className="p-4 md:p-5 border-t border-gray-200 flex-shrink-0">
+        <button
+          onClick={() => setShowDetailsModal(false)}
+          className="w-full px-4 py-2.5 text-sm md:text-base text-white font-medium rounded-lg bg-gradient-to-r from-[#064349] to-[#03683E] hover:from-[#075a61] hover:to-[#048447] transition-all duration-300 shadow-md hover:shadow-lg"
+        >
+          Volver
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       {/* Modal de Confirmar Asistencia */}
       {showAttendModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

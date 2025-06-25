@@ -34,12 +34,12 @@ export function TasksPage() {
     setSortedTasks({ future, past });
   }, [tasks]);
 
-
+  // Verificamos si estamos en la ruta base (/tasks)
   const isBaseRoute = location.pathname === "/tasks";
 
   return (
     <div className="flex min-h-screen bg-white-100 mt-16">
-      {/* Sidebar izquierda - visible en todos los tamaños */}
+      {/* Sidebar izquierda */}
       <div className="mt-16 fixed top-0 left-0 h-screen w-fit z-50 bg-gradient-to-b from-[#002615] to-[#056e51] p-4 max-md:p-3 max-sm:p-2">
         <aside className="w-28 sm:w-32 md:w-36 max-md:w-28 max-sm:w-24 text-white">
           <h1 className="text-sm max-md:text-xs max-sm:text-[10px] font-bold mb-6 max-md:mb-5 max-sm:mb-4">
@@ -161,7 +161,7 @@ export function TasksPage() {
                 {/* Sección actividades futuras */}
                 {sortedTasks.future.length > 0 && (
                   <div className="mb-12">
-            
+                    {/* Header opcional para actividades futuras */}
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full"></div>
                       <h2 className="text-2xl font-bold text-gray-800 flex items-center">
@@ -181,6 +181,7 @@ export function TasksPage() {
                   </div>
                 )}
 
+                {/* Línea separadora mejorada */}
                 {sortedTasks.future.length > 0 && sortedTasks.past.length > 0 && (
                   <div className="relative my-8">
                     <hr className="border-t-2 border-gray-300 opacity-50" />
