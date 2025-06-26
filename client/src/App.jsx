@@ -103,9 +103,9 @@ function App() {
                         </Route>
                         
                         {/* Rutas protegidas para administradores */}
-                        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+                     
                           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                        </Route>
+                 
                       </Routes>
                     </main>
                   </BrowserRouter>
