@@ -66,7 +66,7 @@ function App() {
         <NotificationsProvider>
           <AsistenciaProvider>
             <AdminProvider>
-              <AdminPanelProvider>
+              
                 <SearchProvider>
                   <BrowserRouter>
                     <main className="content-container mx-auto md:px-0">
@@ -103,14 +103,14 @@ function App() {
                         </Route>
                         
                         {/* Rutas protegidas para administradores */}
-                     
+                        <Route element={<ProtectedRoute allowedRoles={["admin", "superadmin"]} />}>
                           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                 
+                        </Route>
                       </Routes>
                     </main>
                   </BrowserRouter>
                 </SearchProvider>
-              </AdminPanelProvider>
+       
             </AdminProvider>
           </AsistenciaProvider>
         </NotificationsProvider>
