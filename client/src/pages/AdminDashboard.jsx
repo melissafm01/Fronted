@@ -13,35 +13,35 @@ import ActivityTable from "../components/admin/activities/ActivityTable";
 import AttendanceStats from "../components/admin/attendances/AttendanceStats";
 import AttendanceTable from "../components/admin/attendances/AttendanceTable";
 
-export default function AdminDashboard() {
+ export default function AdminDashboard() {
   const { user } = useAuth();
-  const { 
-    admins, 
-    stats, 
-    loading: adminLoading, 
-    errors: adminErrors, 
-    getAdminStats, 
-    getAllAdmins,
-    clearErrors: clearAdminErrors
-  } = useAdmin();
+ // const { 
+ //   admins, 
+ //   stats, 
+ //   loading: adminLoading, 
+ //   errors: adminErrors, 
+ //   getAdminStats, 
+ //   getAllAdmins,
+ // clearErrors: clearAdminErrors
+ // } = useAdmin();
   
-  //const {
-   // users,
-   // activities,
-  //  attendances,
-  //  userStats,
-  //  activityStats,
-  //  attendanceStats,
-  //  loading: panelLoading,
-  //  errors: panelErrors,
-   // clearErrors: clearPanelErrors,
-   // fetchUsers,
-   // fetchActivities,
-   // fetchAttendances,
-    //fetchUserStats,
-    //fetchActivityStats,
-   // fetchAttendanceStats
-  //} = useAdminPanel();//
+  const {
+   users,
+   activities,
+    attendances,
+    userStats,
+    activityStats,
+    attendanceStats,
+    loading: panelLoading,
+    errors: panelErrors,
+    clearErrors: clearPanelErrors,
+    fetchUsers,
+    fetchActivities,
+    fetchAttendances,
+   fetchUserStats,
+   fetchActivityStats,
+    fetchAttendanceStats
+  } = useAdminPanel();
 
   const [activeTab, setActiveTab] = useState("stats");
 
@@ -78,9 +78,9 @@ export default function AdminDashboard() {
   }
 
   // Redirigir si el usuario no tiene el rol adecuado
-//  if (user.role !== "superadmin" && user.role !== "admin") {
-   // return <Navigate to="/tasks" replace />;//
- // }
+  if (user.role !== "superadmin" && user.role !== "admin") {
+  return <Navigate to="/tasks" replace />;//
+ }
 
   const loading = adminLoading || panelLoading;
   const errors = [...adminErrors, ...panelErrors];
