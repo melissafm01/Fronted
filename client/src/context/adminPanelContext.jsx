@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useAuth } from "../context/authContext";
 import { 
   getUsersRequest,
   getUserDetailsRequest,
@@ -26,7 +25,6 @@ export const useAdminPanel = () => {
 };
 
 export const AdminPanelProvider = ({ children }) => {
-    const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [activities, setActivities] = useState([]);
   const [attendances, setAttendances] = useState([]);
@@ -235,12 +233,11 @@ export const AdminPanelProvider = ({ children }) => {
   };
 
   // Load initial stats
-   useEffect(() => {
-    if (!user) return;
+  useEffect(() => {
     fetchUserStats();
     fetchActivityStats();
     fetchAttendanceStats();
-  }, [user]);
+  }, []);
 
   return (
     <AdminPanelContext.Provider

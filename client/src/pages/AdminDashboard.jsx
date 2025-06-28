@@ -48,7 +48,7 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
   // 🧠 Mostrar log para depuración
   console.log("Usuario cargado:", user);
 
-  useEffect(() => {
+ /* useEffect(() => {
     if (!user || !user.role) return;
 
     console.log("Entrando al useEffect con rol:", user.role);
@@ -66,7 +66,7 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
       fetchActivityStats();
       fetchAttendanceStats();
     }
-  }, [user?.role]); // se asegura que cambie si el rol cambia
+  }, [user?.role]); // se asegura que cambie si el rol cambia*/
 
   // Mostrar cargando mientras llega el usuario
   if (!user) {
