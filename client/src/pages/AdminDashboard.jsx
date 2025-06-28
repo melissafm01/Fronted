@@ -18,8 +18,8 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
  const { 
     admins,
    stats, 
-   // loading: adminLoading, 
-    errors: adminErrors, 
+    loading: adminLoading, 
+    //errors: adminErrors, 
    getAdminStats, 
    getAllAdmins,
   clearErrors: clearAdminErrors
