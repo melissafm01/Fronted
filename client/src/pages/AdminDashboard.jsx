@@ -78,9 +78,9 @@ export default function AdminDashboard() {
   }
 
   // Redirigir si el usuario no tiene el rol adecuado
-  if (user.role !== "superadmin" && user.role !== "admin") {
-    return <Navigate to="/tasks" replace />;
-  }
+//  if (user.role !== "superadmin" && user.role !== "admin") {
+   // return <Navigate to="/tasks" replace />;//
+ // }//
 
   const loading = adminLoading || panelLoading;
   const errors = [...adminErrors, ...panelErrors];
