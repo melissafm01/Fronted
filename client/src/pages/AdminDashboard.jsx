@@ -43,7 +43,7 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
     fetchAttendanceStats
   } = useAdminPanel();
 
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("stats");
 
   // 🧠 Mostrar log para depuración
   console.log("Usuario cargado:", user);
