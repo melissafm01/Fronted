@@ -15,15 +15,15 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
 
  export default function AdminDashboard() {
   const { user } = useAuth();
- // const { 
- //   admins, 
- //   stats, 
- //   loading: adminLoading, 
- //   errors: adminErrors, 
- //   getAdminStats, 
- //   getAllAdmins,
- // clearErrors: clearAdminErrors
- // } = useAdmin();
+ const { 
+    /*admins,*/ 
+    stats, 
+    loading: adminLoading, 
+    errors: adminErrors, 
+   getAdminStats, 
+   getAllAdmins,
+  clearErrors: clearAdminErrors
+  } = useAdmin();
   
   const {
    users,
