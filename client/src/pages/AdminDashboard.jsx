@@ -25,23 +25,23 @@ export default function AdminDashboard() {
     clearErrors: clearAdminErrors
   } = useAdmin();
   
-  const {
-    users,
-    activities,
-    attendances,
-    userStats,
-    activityStats,
-    attendanceStats,
-    loading: panelLoading,
-    errors: panelErrors,
-    clearErrors: clearPanelErrors,
-    fetchUsers,
-    fetchActivities,
-    fetchAttendances,
-    fetchUserStats,
-    fetchActivityStats,
-    fetchAttendanceStats
-  } = useAdminPanel();
+  //const {
+   // users,
+   // activities,
+  //  attendances,
+  //  userStats,
+  //  activityStats,
+  //  attendanceStats,
+  //  loading: panelLoading,
+  //  errors: panelErrors,
+   // clearErrors: clearPanelErrors,
+   // fetchUsers,
+   // fetchActivities,
+   // fetchAttendances,
+    //fetchUserStats,
+    //fetchActivityStats,
+   // fetchAttendanceStats
+  //} = useAdminPanel();//
 
   const [activeTab, setActiveTab] = useState("stats");
 
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
   // Redirigir si el usuario no tiene el rol adecuado
 //  if (user.role !== "superadmin" && user.role !== "admin") {
    // return <Navigate to="/tasks" replace />;//
- // }//
+ // }
 
   const loading = adminLoading || panelLoading;
   const errors = [...adminErrors, ...panelErrors];
