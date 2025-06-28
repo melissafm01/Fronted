@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAdmin } from "../context/adminContext";
 import { useAuth } from "../context/authContext";
 import { useAdminPanel } from "../context/adminPanelContext";
@@ -13,39 +13,40 @@ import ActivityTable from "../components/admin/activities/ActivityTable";
 import AttendanceStats from "../components/admin/attendances/AttendanceStats";
 import AttendanceTable from "../components/admin/attendances/AttendanceTable";
 
- export default function AdminDashboard() {
-  //const { user } = useAuth();//
- const { 
-    admins,
-    stats, 
-    loading: adminLoading, 
-    errors: adminErrors, 
-   getAdminStats,
-   getAllAdmins,
-  clearErrors: clearAdminErrors
-  } = useAdmin();
-  
+export default function AdminDashboard() {
+  const { user } = useAuth();
+
   const {
-   users,
-   activities,
+    admins,
+    stats,
+    loading: adminLoading,
+    errors: adminErrors = [],
+    getAdminStats,
+    getAllAdmins,
+    clearErrors: clearAdminErrors,
+  } = useAdmin();
+
+  const {
+    users,
+    activities,
     attendances,
     userStats,
     activityStats,
     attendanceStats,
     loading: panelLoading,
-    errors: panelErrors,
+    errors: panelErrors = [],
     clearErrors: clearPanelErrors,
     fetchUsers,
     fetchActivities,
     fetchAttendances,
-   fetchUserStats,
-   fetchActivityStats,
-    fetchAttendanceStats
+    fetchUserStats,
+    fetchActivityStats,
+    fetchAttendanceStats,
   } = useAdminPanel();
 
   const [activeTab, setActiveTab] = useState("stats");
 
-  // 🧠 Mostrar log para depuración
+  // Mostrar log para depuración
   console.log("Usuario cargado:", user);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
       fetchActivityStats();
       fetchAttendanceStats();
     }
-  }, [user?.role]); // se asegura que cambie si el rol cambia
+  }, [user]); // Mejor que depender solo de user?.role
 
   // Mostrar cargando mientras llega el usuario
   if (!user) {
@@ -78,17 +79,17 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
   }
 
   // Redirigir si el usuario no tiene el rol adecuado
-  if (user.role !== "superadmin" && user.role !== "admin") {
-  return <Navigate to="/tasks" replace />;//
- }
+  if (!user || (user.role !== "superadmin" && user.role !== "admin")) {
+    return <Navigate to="/tasks" replace />;
+  }
 
   const loading = adminLoading || panelLoading;
   const errors = [...adminErrors, ...panelErrors];
 
-  const clearErrors = () => {
+  const clearErrors = useCallback(() => {
     clearAdminErrors();
     clearPanelErrors();
-  };
+  }, [clearAdminErrors, clearPanelErrors]);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 pb-10 px-4 sm:px-6 lg:px-8">
@@ -96,11 +97,13 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
-            {user.role === "superadmin" ? "Panel de Super Administración" : "Panel de Administración"}
+            {user.role === "superadmin"
+              ? "Panel de Super Administración"
+              : "Panel de Administración"}
           </h1>
           <p className="mt-2 text-lg text-gray-600">
-            {user.role === "superadmin" 
-              ? "Gestión completa del sistema" 
+            {user.role === "superadmin"
+              ? "Gestión completa del sistema"
               : "Gestión de usuarios, actividades y asistencias"}
           </p>
         </div>
@@ -189,21 +192,32 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 001.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 001.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">Se encontraron {errors.length} error(es)</h3>
+                <h3 className="text-sm font-medium text-red-800">
+                  Se encontraron {errors.length} error(es)
+                </h3>
                 <ul className="mt-2 text-sm text-red-700 list-disc pl-5 space-y-1">
-                  {errors.map((error, i) => (
-                    <li key={i}>{error}</li>
+                  {errors.map((error) => (
+                    <li key={error}>{error}</li>
                   ))}
                 </ul>
               </div>
               <div className="ml-auto pl-3">
                 <button onClick={clearErrors} className="text-red-700 hover:text-red-500">
                   <svg className="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
