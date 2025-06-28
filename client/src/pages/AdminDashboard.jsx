@@ -20,8 +20,8 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
     stats, 
     loading: adminLoading, 
     errors: adminErrors, 
-   //getAdminStats,// 
-   getAllAdmins,
+   getAdminStats,
+   //getAllAdmins,
   clearErrors: clearAdminErrors
   } = useAdmin();
   
