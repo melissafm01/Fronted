@@ -21,8 +21,8 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
     loading: adminLoading, 
     errors: adminErrors, 
    getAdminStats,
-   //getAllAdmins,
-  clearErrors: clearAdminErrors
+   getAllAdmins,
+  //clearErrors: clearAdminErrors
   } = useAdmin();
   
   const {
