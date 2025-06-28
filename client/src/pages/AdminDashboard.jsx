@@ -17,10 +17,10 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
   const { user } = useAuth();
  const { 
     admins,
-   stats, 
+    stats, 
     loading: adminLoading, 
-    //errors: adminErrors, 
-   getAdminStats, 
+    errors: adminErrors, 
+   //getAdminStats,// 
    getAllAdmins,
   clearErrors: clearAdminErrors
   } = useAdmin();
