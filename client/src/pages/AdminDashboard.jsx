@@ -45,13 +45,20 @@ export default function AdminDashboard() {
 
   const [activeTab, setActiveTab] = useState("stats");
 
+  // 🧠 Mostrar log para depuración
+  console.log("Usuario cargado:", user);
+
   useEffect(() => {
-    if (user?.role === "superadmin") {
+    if (!user || !user.role) return;
+
+    console.log("Entrando al useEffect con rol:", user.role);
+
+    if (user.role === "superadmin") {
       getAdminStats();
       getAllAdmins();
     }
-    
-    if (user?.role === "admin") {
+
+    if (user.role === "admin") {
       fetchUsers();
       fetchActivities();
       fetchAttendances();
@@ -59,9 +66,19 @@ export default function AdminDashboard() {
       fetchActivityStats();
       fetchAttendanceStats();
     }
-  }, [user]);
+  }, [user?.role]); // se asegura que cambie si el rol cambia
 
-  if (user?.role !== "superadmin" && user?.role !== "admin") {
+  // Mostrar cargando mientras llega el usuario
+  if (!user) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p className="text-gray-600 text-lg">Cargando sesión...</p>
+      </div>
+    );
+  }
+
+  // Redirigir si el usuario no tiene el rol adecuado
+  if (user.role !== "superadmin" && user.role !== "admin") {
     return <Navigate to="/tasks" replace />;
   }
 
@@ -101,7 +118,7 @@ export default function AdminDashboard() {
             >
               Estadísticas
             </button>
-            
+
             {user.role === "superadmin" && (
               <>
                 <button
@@ -127,43 +144,42 @@ export default function AdminDashboard() {
               </>
             )}
 
+            {user.role === "admin" && (
+              <>
+                <button
+                  onClick={() => setActiveTab("users")}
+                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "users"
+                      ? "border-green-500 text-green-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Usuarios
+                </button>
 
-            
-        {user.role === "admin" && (
-           <>
-            <button
-              onClick={() => setActiveTab("users")}
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "users"
-                  ? "border-green-500 text-green-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              Usuarios
-            </button>
-            
-            <button
-              onClick={() => setActiveTab("activities")}
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "activities"
-                  ? "border-green-500 text-green-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              Actividades
-            </button>
-            
-            <button
-              onClick={() => setActiveTab("attendances")}
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "attendances"
-                  ? "border-green-500 text-green-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              Asistencias
-            </button>
-                </>)}
+                <button
+                  onClick={() => setActiveTab("activities")}
+                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "activities"
+                      ? "border-green-500 text-green-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Actividades
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("attendances")}
+                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "attendances"
+                      ? "border-green-500 text-green-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Asistencias
+                </button>
+              </>
+            )}
           </nav>
         </div>
 
@@ -172,26 +188,21 @@ export default function AdminDashboard() {
           <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <svg className="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 001.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </div>
               <div className="ml-3">
                 <h3 className="text-sm font-medium text-red-800">Se encontraron {errors.length} error(es)</h3>
-                <div className="mt-2 text-sm text-red-700">
-                  <ul className="list-disc pl-5 space-y-1">
-                    {errors.map((error, i) => (
-                      <li key={i}>{error}</li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="mt-2 text-sm text-red-700 list-disc pl-5 space-y-1">
+                  {errors.map((error, i) => (
+                    <li key={i}>{error}</li>
+                  ))}
+                </ul>
               </div>
               <div className="ml-auto pl-3">
-                <button
-                  onClick={clearErrors}
-                  className="text-red-700 hover:text-red-500"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onClick={clearErrors} className="text-red-700 hover:text-red-500">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -202,45 +213,44 @@ export default function AdminDashboard() {
 
         {/* Tab Content */}
         <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
-          {loading && activeTab !== "users" && activeTab !== "activities" && activeTab !== "attendances" && (
+          {loading && (
             <div className="p-6 flex justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-500"></div>
             </div>
           )}
-          
+
           <div className="px-4 py-5 sm:p-6">
-           {activeTab === "stats" && (
-         <div className="space-y-8">
-    {/* Mostrar solo las estadísticas correspondientes a cada rol */}
-        {user.role === "superadmin" ? (
-         <AdminStats stats={stats} />
-        ) : (
-        <>
-        <UserStats />
-        <ActivityStats />
-        <AttendanceStats />
-      </>
-       )}
-    </div>
-    )}
-            
+            {activeTab === "stats" && (
+              <div className="space-y-8">
+                {user.role === "superadmin" ? (
+                  <AdminStats stats={stats} />
+                ) : (
+                  <>
+                    <UserStats />
+                    <ActivityStats />
+                    <AttendanceStats />
+                  </>
+                )}
+              </div>
+            )}
+
             {activeTab === "admins" && user.role === "superadmin" && <AdminList admins={admins} />}
             {activeTab === "create" && user.role === "superadmin" && <CreateAdminForm />}
-            
+
             {activeTab === "users" && (
               <div className="space-y-6">
                 <UserStats />
                 <UserTable />
               </div>
             )}
-            
+
             {activeTab === "activities" && (
               <div className="space-y-6">
                 <ActivityStats />
                 <ActivityTable />
               </div>
             )}
-            
+
             {activeTab === "attendances" && (
               <div className="space-y-6">
                 <AttendanceStats />

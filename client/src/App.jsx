@@ -66,7 +66,7 @@ function App() {
         <NotificationsProvider>
           <AsistenciaProvider>
             <AdminProvider>
-              
+              <AdminPanelProvider>
                 <SearchProvider>
                   <BrowserRouter>
                     <main className="content-container mx-auto md:px-0">
@@ -110,7 +110,7 @@ function App() {
                     </main>
                   </BrowserRouter>
                 </SearchProvider>
-       
+              </AdminPanelProvider>
             </AdminProvider>
           </AsistenciaProvider>
         </NotificationsProvider>
