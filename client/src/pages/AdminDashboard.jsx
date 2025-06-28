@@ -14,8 +14,8 @@ import AttendanceStats from "../components/admin/attendances/AttendanceStats";
 import AttendanceTable from "../components/admin/attendances/AttendanceTable";
 
  export default function AdminDashboard() {
-  const { user } = useAuth();
-/* const { 
+  //const { user } = useAuth();//
+ const { 
     admins,
     stats, 
     loading: adminLoading, 
@@ -24,7 +24,7 @@ import AttendanceTable from "../components/admin/attendances/AttendanceTable";
    getAllAdmins,
   clearErrors: clearAdminErrors
   } = useAdmin();
-  */
+  
   const {
    users,
    activities,
