@@ -28,11 +28,11 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   const [email, setEmail] = useState(() => localStorage.getItem("userEmail") || "");
   const [name, setName] = useState(() => localStorage.getItem("userName") || "");
 
-  // Actualizar para usar el hook mejorado
+  
   const [isAttending, setIsAttending] = useAttendance(task._id);
   const [isLoading, setIsLoading] = useState(false);
   const [isPromoted, setIsPromoted] = useState(task.isPromoted);
-   // Nueva función para ir a configuración de notificaciones
+
   const handleGoToNotifications = () => {
   navigate(`/tasks/notificaciones?taskId=${task._id}`);
 };
@@ -46,7 +46,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
   try {
     await deleteTask(task._id);
     setShowModal(false);
-    // Refrescar automáticamente después de eliminar
+ 
     if (typeof refreshSearch === "function") {
       refreshSearch();
     }
@@ -57,7 +57,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
 };
 
  const handleTogglePromotion = async () => {
-  // Actualización optimista - cambiar UI inmediatamente
+ 
   const newPromotedState = !isPromoted;
   setIsPromoted(newPromotedState);
   
@@ -74,7 +74,7 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
       refreshSearch();
     }
   } catch (error) {
-    // Si hay error, revertir el cambio
+
     setIsPromoted(!newPromotedState);
   
     toast.error("Error al cambiar promoción");
@@ -90,10 +90,10 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
     try {
       const normalizedEmail = email.trim().toLowerCase();
       
-      // 1. Actualizar estado local primero (optimistic update)
+   
       setIsAttending(true);
       
-      // 2. Confirmar en backend
+   
       await confirmAttendance({
         taskId: task._id,
         email: normalizedEmail,
@@ -124,52 +124,42 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
     }
   };
 
- const handleCancel = async () => {
-  setIsLoading(true);
-  try {
-    const userEmail = email?.trim().toLowerCase();  
-
-    // 1. Llamar al contexto para cancelar
-    await cancelAttendance({ 
-      taskId: task._id, 
-      email: userEmail 
-    });
-    // 2. Actualización del estado local
-    setIsAttending(false);   
-    // 3. Actualizar localStorage
-    if (userEmail) {
-      const storageKey = `userAttendances_${userEmail}`;
-      const userAttendances = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  const handleCancel = async () => {
+    setIsLoading(true);
+    try {
+      const userEmail = email.trim().toLowerCase();
+      
+      // 1. Actualización optimista
+      setIsAttending(false);
+      
+      // 2. Cancelar en el backend
+      await cancelAttendance({ 
+        taskId: task._id, 
+        email: userEmail 
+      });
+      
+      // 3. Actualizar localStorage
+      const userAttendances = JSON.parse(
+        localStorage.getItem(`userAttendances_${userEmail}`) || '[]'
+      );
       const updatedAttendances = userAttendances.filter(id => id !== task._id);
-      localStorage.setItem(storageKey, JSON.stringify(updatedAttendances));
-
-    }
-    
-    // 4. Recargar asistentes para asegurar consistencia
-    if (typeof fetchAttendees === 'function') {
+      localStorage.setItem(
+        `userAttendances_${userEmail}`,
+        JSON.stringify(updatedAttendances)
+      );
+      
+      // 4. Forzar recarga de asistentes
       await fetchAttendees(task._id);
+      setShowCancelModal(false);
+      toast.error("Asistencia cancelada correctamente ❌");
+    } catch (err) {
+   
+      setIsAttending(true); // Revertir en caso de error
+      toast.error(err.response?.data?.message || "Error al cancelar asistencia");
+    } finally {
+      setIsLoading(false);
     }
-    
-    // 5. Cerrar modal y mostrar mensaje
-    setShowCancelModal(false);
-    
-    // Usar toast.success para mensaje positivo de cancelación
-    toast.success("✅ Asistencia cancelada correctamente");
-    
-  } catch (err) {
-    console.error("❌ Error en handleCancel:", err);
-    
-    // Revertir estado en caso de error
-    setIsAttending(true);
-    
-    // Mostrar mensaje de error específico
-    const errorMessage = err.message || err.response?.data?.message || "Error al cancelar asistencia";
-    toast.error(errorMessage);
-    
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -383,7 +373,8 @@ export function TaskCard({ task, showPromoBadge = false, showAttendanceButton = 
     )}
   </>
 )}
-              
+          
+       
           {task.isOwner && (
             <div className="flex gap-x-2 items-center">
               <button
