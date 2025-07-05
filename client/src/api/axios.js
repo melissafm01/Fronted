@@ -10,7 +10,7 @@ const instance = axios.create({
   }
 });
 
-// Interceptor para manejar errores
+// Interceptor para manejar erroress
 instance.interceptors.response.use(
   response => response,
   error => {
