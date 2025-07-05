@@ -249,41 +249,33 @@ const logout = async () => {
 
 
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      const cookies = Cookies.get();
-      if (!cookies.token) {
+useEffect(() => {
+  const checkLogin = async () => {
+    try {
+      const res = await verifyTokenRequest();
+      console.log("Token verification response:", res);
+      
+      if (!res.data) {
         setIsAuthenticated(false);
         setLoading(false);
         return;
       }
-
-      try {
-        const res = await verifyTokenRequest(cookies.token);
-        console.log("Token verification response:", res);
-        
-        if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          return;
-        }
-        
-        setIsAuthenticated(true);
-        setUser(res.data);
-        setupLocalStorage(res.data);
-        
-      } catch (error) {
-        console.error("Error verifying token:", error);
-        cleanupLocalStorage(localStorage.getItem("userEmail"));
-        setIsAuthenticated(false);
-        Cookies.remove("token");
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    checkLogin();
-  }, []);
+      
+      setIsAuthenticated(true);
+      setUser(res.data);
+      setupLocalStorage(res.data);
+      
+    } catch (error) {
+      console.error("Error verifying token:", error);
+      cleanupLocalStorage(localStorage.getItem("userEmail"));
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  checkLogin();
+}, []);
 
   return (
     <AuthContext.Provider

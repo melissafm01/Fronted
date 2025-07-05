@@ -2,11 +2,20 @@
   "version": 2,
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/api/.*",
+      "dest": "https://backend-nrpu.onrender.com",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://fronted-cyan.vercel.app",
+        "Access-Control-Allow-Credentials": "true"
+      }
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/index.html",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://fronted-cyan.vercel.app",
+        "Access-Control-Allow-Credentials": "true"
+      }
     }
   ]
 }
