@@ -252,7 +252,7 @@ export function Navbar() {
                   )}
                 </div>
 
-                {/* Menú de perfil responsive */}
+                {/* Menú de perfil responsivee */}
                 <div className="relative" ref={profileRef}>
                   <button
                     onClick={toggleProfile}
