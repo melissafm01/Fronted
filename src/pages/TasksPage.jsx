@@ -118,12 +118,12 @@ export function TasksPage() {
               <div className="mt-4 border-t border-[#003529] pt-4">
                 <h2 className="text-xs font-bold mb-2 text-white opacity-80">Administración</h2>
               
-  <ButtonLink
+<ButtonLink
   to="/admin-dashboard"
-  className="w-full max-w-[150px] truncate bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded text-xs flex items-center gap-1"
+  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded text-[10px] max-sm:text-[9px] flex flex-col items-center justify-center text-center leading-tight"
 >
   <svg 
-    className="w-4 h-4 flex-shrink-0" 
+    className="w-4 h-4 mb-1" 
     fill="none" 
     stroke="currentColor" 
     viewBox="0 0 24 24"
@@ -135,7 +135,7 @@ export function TasksPage() {
       d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" 
     />
   </svg>
-  <span className="truncate"> Administración</span>
+  <span>Panel Admin</span>
 </ButtonLink>
 
  
