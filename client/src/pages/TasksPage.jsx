@@ -40,7 +40,7 @@ export function TasksPage() {
   return (
 
     <div className="flex min-h-screen bg-white mt-16">
-      {/* Sidebar izquierda */}
+      {/* Sidebar izquñierda */}
       <div
         className={`${
           isMobileMenuOpen ? "hidden" : "block"
