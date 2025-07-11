@@ -322,6 +322,7 @@ export function Navbar() {
                 <div>
                   <p className="text-sm font-semibold text-gray-900 truncate">{user?.username}</p>
                   <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                   <p className="text-xs text-gray-500 truncate">{user?.phone}</p>
                 </div>
               </div>
             </div>

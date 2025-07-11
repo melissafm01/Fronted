@@ -21,6 +21,9 @@ export const registerSchema = z
     email: z.string().email({
       message: "Please enter a valid email address",
     }),
+      phone: z.string().min(10, {
+      message: "El teléfono debe tener al menos 10 dígitos",
+    }),
     password: z.string().min(6, {
       message: "Password must be at least 6 characters",
     }),
