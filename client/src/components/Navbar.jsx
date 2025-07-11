@@ -283,20 +283,7 @@ export function Navbar() {
             }`} />
           </div>
           
-          <div className="hidden xl:flex flex-col items-start">
-            <span className="text-xs font-medium text-white group-hover:text-emerald-200 transition-colors truncate max-w-20">
-
-              {user?.username || "Usuario"}
-            </span>
-            <span className={`text-xs flex items-center gap-1 ${
-              isConnected ? "text-green-300" : "text-red-300"
-            }`}>
-              <div className={`w-2 h-2 rounded-full ${
-                isConnected ? "bg-green-400" : "bg-red-400"
-              }`} />
-              {isConnected ? "Conectado" : "Desconectado"}
-            </span>
-          </div>
+   
           
           <svg
             className={`w-4 h-4 text-white/70 transition-all duration-300 ${
